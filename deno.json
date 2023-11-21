@@ -1,0 +1,9 @@
+{
+  "tasks": {
+    "dev": "deno run -A main.ts"
+  },
+  "imports": {
+    "axios": "npm:axios@1.6.2",
+    "commander": "npm:commander@11.0.0"
+  }
+}
