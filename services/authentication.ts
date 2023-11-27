@@ -5,8 +5,8 @@ import { fetchSecret } from "../lib/vault.ts";
 
 export async function authentication(): Promise<AxiosInstance> {
   const secret = await fetchSecret({
-    secretEngine: "" || config.vault.secretEngine,
-    secretPath: "" || config.vault.secretPath,
+    secretEngine: config.vault.secretEngine,
+    secretPath: config.vault.secretPath,
   });
 
   const client = axios.create({
