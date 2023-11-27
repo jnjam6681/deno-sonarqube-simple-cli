@@ -11,7 +11,7 @@ export default function (program: Command) {
 
   create
     .command("group")
-    .option("-g, --group <group>", "group.")
+    .option("-g, --group <group>", "specify a group to create")
     .action(async (opts: IGroup) => {
       const client = await authentication();
       await createGroup(client, opts);

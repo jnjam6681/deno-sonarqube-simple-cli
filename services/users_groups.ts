@@ -24,3 +24,34 @@ export async function createGroup(client: AxiosInstance, info: IGroup) {
     console.error(err.response.data.errors);
   }
 }
+
+export interface ISonarqubeGroupSearch {
+  paging: {
+    pageIndex: number;
+    pageSize: number;
+    total: number;
+  };
+  groups: Array<{
+    name: string;
+    description: string;
+    membersCount: number;
+    default: boolean;
+    managed: boolean;
+  }>;
+}
+
+export async function searchGroup(
+  client: AxiosInstance,
+  info: IGroup
+): Promise<ISonarqubeGroupSearch> {
+  try {
+    const response = await client.get(`api/user_groups/search`, {
+      params: {
+        q: info.group,
+      },
+    });
+    return response.data as ISonarqubeGroupSearch;
+  } catch (err) {
+    return Promise.reject(err.response.data.errors);
+  }
+}
