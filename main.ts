@@ -1,4 +1,4 @@
-import { program } from 'commander';
+import { program } from "commander";
 
 function errorColor(str: string) {
   // Add ANSI escape codes to display text in red.
@@ -13,10 +13,10 @@ program
   .configureOutput({
     outputError: (str, write) => write(errorColor(str)),
   })
-  .name('sonar-gen')
-  .description('Example command sonarqube from deno');
+  .name("sonar-gen")
+  .description("Example command sonarqube from deno");
 
-(await import('./lib/command/grant.ts')).default(program);
-(await import('./lib/command/create.ts')).default(program);
+(await import("./lib/command/grant.ts")).default(program);
+(await import("./lib/command/create.ts")).default(program);
 
 program.parse();
