@@ -3,7 +3,7 @@ export const config = {
     url: "http://localhost:9000",
   },
   vault: {
-    url: "http://localhost:8200",
+    url: "http://localhost:8200" || Deno.env.get("VAULT_ADDR"),
     token: "" || Deno.env.get("VAULT_TOKEN"),
     secretEngine: "kv",
     secretPath: "sonarqube",

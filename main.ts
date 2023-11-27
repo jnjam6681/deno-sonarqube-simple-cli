@@ -17,6 +17,5 @@ program
   .description("Example command sonarqube from deno");
 
 (await import("./lib/command/grant.ts")).default(program);
-// (await import("./lib/command/create.ts")).default(program);
 
 program.parse();

@@ -1,6 +1,7 @@
 {
   "tasks": {
-    "dev": "deno run -A main.ts"
+    "dev": "deno run -A main.ts",
+    "compile": "deno compile --output sonar-cli -A main.ts"
   },
   "imports": {
     "axios": "npm:axios@1.6.2",
