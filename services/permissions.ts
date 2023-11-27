@@ -1,9 +1,9 @@
 import { AxiosInstance } from "axios";
-import { IGroup } from "../lib/command/create.ts";
+import { IUserGroup } from "../lib/interfaces.ts";
 
 export async function createPermissionTemplate(
   client: AxiosInstance,
-  info: IGroup
+  info: IUserGroup
 ) {
   try {
     await client.postForm(`api/permissions/create_template`, {
@@ -16,7 +16,7 @@ export async function createPermissionTemplate(
   }
 }
 
-export async function addGroupToTemplate(client: AxiosInstance, info: IGroup) {
+export async function addGroupToTemplate(client: AxiosInstance, info: IUserGroup) {
   try {
     const permissions = [
       "admin",

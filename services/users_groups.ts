@@ -1,6 +1,5 @@
 import { AxiosInstance } from "axios";
-import { IUserGroup } from "../lib/command/grant.ts";
-import { IGroup } from "../lib/command/create.ts";
+import { IUserGroup } from "../lib/interfaces.ts";
 
 export async function addUserToGroup(client: AxiosInstance, info: IUserGroup) {
   try {
@@ -14,7 +13,7 @@ export async function addUserToGroup(client: AxiosInstance, info: IUserGroup) {
   }
 }
 
-export async function createGroup(client: AxiosInstance, info: IGroup) {
+export async function createGroup(client: AxiosInstance, info: IUserGroup) {
   try {
     await client.postForm(`api/user_groups/create`, {
       name: info.group,
@@ -42,7 +41,7 @@ export interface ISonarqubeGroupSearch {
 
 export async function searchGroup(
   client: AxiosInstance,
-  info: IGroup
+  info: IUserGroup
 ): Promise<ISonarqubeGroupSearch> {
   try {
     const response = await client.get(`api/user_groups/search`, {

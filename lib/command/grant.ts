@@ -2,11 +2,7 @@ import { Command } from "commander";
 import { authentication } from "../../services/authentication.ts";
 import { addUserToGroup, createGroup, searchGroup } from "../../services/users_groups.ts";
 import { addGroupToTemplate, createPermissionTemplate } from "../../services/permissions.ts";
-
-export interface IUserGroup {
-  user: string;
-  group: string;
-}
+import { IUserGroup } from "../interfaces.ts";
 
 export default function (program: Command) {
   const grant = program.command("grant");

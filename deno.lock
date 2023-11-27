@@ -60,5 +60,8 @@
       }
     }
   },
+  "redirects": {
+    "https://deno.land/std/testing/asserts.ts": "https://deno.land/std@0.208.0/testing/asserts.ts"
+  },
   "remote": {}
 }
