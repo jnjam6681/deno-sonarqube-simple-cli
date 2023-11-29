@@ -36,7 +36,7 @@ export async function fetchSecret(vaultOption: IVault): Promise<IVaultSecret> {
     `${config.vault.url}/v1/${vaultOption.secretEngine}/data/${vaultOption.secretPath}`
   );
 
-  if (response.status !== 200) {
+  if (response.status === 200) {
     const data = await response.data;
     return data;
   } else {

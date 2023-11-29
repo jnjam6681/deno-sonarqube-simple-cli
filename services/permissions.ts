@@ -1,5 +1,6 @@
 import { AxiosInstance } from "axios";
 import { IUserGroup } from "../lib/interfaces.ts";
+import { exitCode } from "../lib/enums.ts";
 
 export async function createPermissionTemplate(
   client: AxiosInstance,
@@ -10,9 +11,10 @@ export async function createPermissionTemplate(
       name: info.group,
       projectKeyPattern: `${info.group}.*`,
     });
-    console.log(`permission template ${info.group} is created.`);
+    console.log(`Permission template ${info.group} is created.`);
   } catch (err) {
     console.error(err.response.data.errors);
+    Deno.exit(exitCode.BAD_REQUEST);
   }
 }
 
@@ -38,8 +40,9 @@ export async function addGroupToTemplate(client: AxiosInstance, info: IUserGroup
         });
       }
     }
-    console.log(`add group to permission template ${info.group} is completed.`);
+    console.log(`Add group to permission template ${info.group} is completed.`);
   } catch (err) {
     console.error(err.response.data.errors);
+    Deno.exit(exitCode.BAD_REQUEST);
   }
 }

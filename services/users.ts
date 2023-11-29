@@ -1,5 +1,6 @@
 import { AxiosInstance } from "axios";
 import { IUser } from "../lib/interfaces.ts";
+import { exitCode } from "../lib/enums.ts";
 
 export interface ISonarqubeGetUserGroup {
   paging: {
@@ -26,6 +27,8 @@ export async function getUserGroup(client: AxiosInstance, info: IUser): Promise<
     console.log(response.data);
     return response.data as ISonarqubeGetUserGroup;
   } catch (err) {
-    return Promise.reject(err.response.data.errors);
+    console.error(err.response.data.errors);
+    Deno.exit(exitCode.BAD_REQUEST);
+    // return Promise.reject(err.response.data.errors);
   }
 }
