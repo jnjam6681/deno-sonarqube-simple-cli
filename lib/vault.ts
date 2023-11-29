@@ -1,5 +1,7 @@
 import { config } from "../config/config.ts";
 import { axios } from "../deps.ts";
+import { exitCode } from "./enums.ts";
+
 
 interface IVault {
   secretEngine: string;
@@ -34,10 +36,12 @@ export async function fetchSecret(vaultOption: IVault): Promise<IVaultSecret> {
     `${config.vault.url}/v1/${vaultOption.secretEngine}/data/${vaultOption.secretPath}`
   );
 
-  if (response.status === 200) {
+  if (response.status !== 200) {
     const data = await response.data;
     return data;
   } else {
-    throw new Error("failed to fetch secret.");
+    console.error("failed to fetch secret.")
+    Deno.exit(exitCode.BAD_REQUEST);
+    // throw new Error("failed to fetch secret.");
   }
 }
