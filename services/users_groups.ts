@@ -1,6 +1,7 @@
-import { AxiosInstance } from "axios";
+import axios, { AxiosInstance } from "axios";
 import { IUserGroup } from "../lib/interfaces.ts";
 import { exitCode } from "../lib/enums.ts";
+import { _ } from "../deps.ts";
 
 export async function addUserToGroup(client: AxiosInstance, info: IUserGroup) {
   try {
@@ -54,8 +55,11 @@ export async function searchGroup(
     });
     return response.data as ISonarqubeGroupSearch;
   } catch (err) {
-    console.error(err.response.data.errors);
-    Deno.exit(exitCode.BAD_REQUEST)
+    if (axios.isAxiosError(err)) {
+      console.error(_.get(err, "response.data.errors"));
+      Deno.exit(exitCode.BAD_REQUEST);
+    }
+    throw err;
     // return Promise.reject(err.response.data.errors);
   }
 }

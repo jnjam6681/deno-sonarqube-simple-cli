@@ -1,6 +1,7 @@
-import { AxiosInstance } from "axios";
+import axios, { AxiosInstance } from "axios";
 import { IUserGroup } from "../lib/interfaces.ts";
 import { exitCode } from "../lib/enums.ts";
+import { _ } from "../deps.ts";
 
 export async function createPermissionTemplate(
   client: AxiosInstance,
@@ -13,12 +14,18 @@ export async function createPermissionTemplate(
     });
     console.log(`Permission template ${info.group} is created.`);
   } catch (err) {
-    console.error(err.response.data.errors);
-    Deno.exit(exitCode.BAD_REQUEST);
+    if (axios.isAxiosError(err)) {
+      console.error(_.get(err, "response.data.errors"));
+      Deno.exit(exitCode.BAD_REQUEST);
+    }
+    throw err;
   }
 }
 
-export async function addGroupToTemplate(client: AxiosInstance, info: IUserGroup) {
+export async function addGroupToTemplate(
+  client: AxiosInstance,
+  info: IUserGroup
+) {
   try {
     const permissions = [
       "admin",
@@ -42,7 +49,10 @@ export async function addGroupToTemplate(client: AxiosInstance, info: IUserGroup
     }
     console.log(`Add group to permission template ${info.group} is completed.`);
   } catch (err) {
-    console.error(err.response.data.errors);
-    Deno.exit(exitCode.BAD_REQUEST);
+    if (axios.isAxiosError(err)) {
+      console.error(_.get(err, "response.data.errors"));
+      Deno.exit(exitCode.BAD_REQUEST);
+    }
+    throw err;
   }
 }
