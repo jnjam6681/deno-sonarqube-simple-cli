@@ -18,7 +18,10 @@ export interface ISonarqubeGetUserGroup {
   }>;
 }
 
-export async function getUserGroup(client: AxiosInstance, info: IUser): Promise<ISonarqubeGetUserGroup> {
+export async function getUserGroup(
+  client: AxiosInstance,
+  info: IUser
+): Promise<ISonarqubeGetUserGroup> {
   try {
     const response = await client.get(`api/users/groups`, {
       params: {
@@ -27,6 +30,47 @@ export async function getUserGroup(client: AxiosInstance, info: IUser): Promise<
     });
     console.log(response.data);
     return response.data as ISonarqubeGetUserGroup;
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      console.error(_.get(err, "response.data.errors"));
+      Deno.exit(exitCode.BAD_REQUEST);
+    }
+    throw err;
+    // return Promise.reject(err.response.data.errors);
+  }
+}
+
+export interface ISonarqubeGetUser {
+  paging: {
+    pageIndex: number;
+    pageSize: number;
+    total: number;
+  };
+  users: Array<{
+    login: string;
+    name: string;
+    active: boolean;
+    email: string;
+    groups: [];
+    tokensCount: number;
+    local: boolean;
+    externalIdentity: string;
+    externalProvider: string;
+    avatar: string;
+    managed: boolean;
+  }>;
+}
+export async function searchUser(
+  client: AxiosInstance,
+  info: IUser
+): Promise<ISonarqubeGetUser> {
+  try {
+    const response = await client.get(`api/users/search`, {
+      params: {
+        q: info.user,
+      },
+    });
+    return response.data as ISonarqubeGetUser;
   } catch (err) {
     if (axios.isAxiosError(err)) {
       console.error(_.get(err, "response.data.errors"));

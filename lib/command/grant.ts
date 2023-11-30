@@ -1,7 +1,7 @@
 import { Command } from "commander";
 import { authentication } from "../../services/authentication.ts";
 import {
-  addUserToGroup,
+addUserToGroup,
   createGroup,
   searchGroup,
 } from "../../services/users_groups.ts";
@@ -11,14 +11,15 @@ import {
 } from "../../services/permissions.ts";
 import { IUserGroup } from "../interfaces.ts";
 import { _ } from "../../deps.ts";
+import { searchUser } from "../../services/users.ts";
 
 export default function (program: Command) {
   const grant = program.command("grant");
 
   grant
     .command("user-group")
-    .requiredOption("-u, --user <user>", "specify a user")
-    .requiredOption("-g, --group <group>", "specify a group.")
+    .requiredOption("-u, --user <user>", "specify a user with email ex. example@email.com")
+    .requiredOption("-g, --group <group>", "specify a group ex. 001.1_DEV")
     .description("add a user to a group.")
     .action(async (opts: IUserGroup) => {
       const client = await authentication();
@@ -37,6 +38,11 @@ export default function (program: Command) {
         await createGroup(client, opts);
         await addGroupToTemplate(client, opts);
       }
-      await addUserToGroup(client, opts);
+
+      const user = await searchUser(client, opts);
+      const findUser = _.filter(user.users, (user) => user.email === opts.user);
+      console.log(findUser[0].login);
+
+      await addUserToGroup(client, findUser[0].login, opts.group);
     });
 }

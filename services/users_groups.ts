@@ -3,11 +3,11 @@ import { IUserGroup } from "../lib/interfaces.ts";
 import { exitCode } from "../lib/enums.ts";
 import { _ } from "../deps.ts";
 
-export async function addUserToGroup(client: AxiosInstance, info: IUserGroup) {
+export async function addUserToGroup(client: AxiosInstance, user: string, group: string) {
   try {
     await client.postForm(`api/user_groups/add_user`, {
-      login: info.user,
-      name: info.group,
+      login: user,
+      name: group,
     });
     console.log("Add user to group is success.");
   } catch (err) {
