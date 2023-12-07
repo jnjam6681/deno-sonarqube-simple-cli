@@ -1,5 +1,5 @@
+import axios from "axios";
 import { config } from "../config/config.ts";
-import { axios } from "../deps.ts";
 import { exitCode } from "./enums.ts";
 
 

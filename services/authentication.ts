@@ -1,6 +1,5 @@
-import { AxiosInstance } from "axios";
+import axios, { AxiosInstance } from "axios";
 import { config } from "../config/config.ts";
-import { axios } from "../deps.ts";
 import { fetchSecret } from "../lib/vault.ts";
 
 export async function authentication(): Promise<AxiosInstance> {
