@@ -9,7 +9,7 @@ export async function addUserToGroup(client: AxiosInstance, user: string, group:
       login: user,
       name: group,
     });
-    console.log("Add user to group is success.");
+    console.log(`Add user ${user} to group is success.`);
   } catch (err) {
     console.error(err.response.data.errors);
     Deno.exit(exitCode.BAD_REQUEST);
