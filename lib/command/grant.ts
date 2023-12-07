@@ -12,6 +12,7 @@ import {
 import { IUserGroup } from "../interfaces.ts";
 import { _ } from "../../deps.ts";
 import { searchUser } from "../../services/users.ts";
+import { exitCode } from "../enums.ts";
 
 export default function (program: Command) {
   const grant = program.command("grant");
@@ -19,7 +20,7 @@ export default function (program: Command) {
   grant
     .command("user-group")
     .requiredOption(
-      "-u, --user <user...>",
+      "-u, --user <user>",
       "specify a user with email ex. example@email.com"
     )
     .requiredOption("-g, --group <group>", "specify a group ex. 001.1_DEV")
@@ -42,14 +43,14 @@ export default function (program: Command) {
         await addGroupToTemplate(client, opts);
       }
 
-      for (let i = 0; i < opts.user.length; i++) {
-        const user = await searchUser(client, opts);
-        const findUser = _.filter(
-          user.users,
-          (user) => user.email === opts.user[i]
-        );
+      const user = await searchUser(client, opts);
+      const findUser = _.filter(user.users, (user) => user.email === opts.user);
 
+      if (findUser.length > 0) {
         await addUserToGroup(client, findUser[0].login, opts.group);
+      } else {
+        console.error(`Not found user ${opts.user}`);
+        Deno.exit(exitCode.USER_NOT_FOUND);
       }
     });
 }
