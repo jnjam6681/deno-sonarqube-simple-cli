@@ -1,7 +1,7 @@
 import { Command } from "commander";
-import { IUser } from "../interfaces.ts";
-import { authentication } from "../../services/authentication.ts";
-import { getUserGroup, searchUser } from "../../services/users.ts";
+import { IUserGroup } from "../interfaces.ts";
+import { SonarqubeUserService } from "../../services/SonarqubeUserService.ts";
+import { AuthenticationService } from "../../services/AuthenticationService.ts";
 
 export default function (program: Command) {
   const grant = program.command("get");
@@ -10,19 +10,23 @@ export default function (program: Command) {
     .command("user-group")
     .requiredOption("-u, --user <user>", "specify a user login")
     .description("lists the groups a user belongs to.")
-    .action(async (opts: IUser) => {
-      const client = await authentication();
+    .action(async (opts: IUserGroup) => {
+      const authService = new AuthenticationService();
+      const client = await authService.getClient();
+      const sonarqubeUserService = new SonarqubeUserService(client)
 
-      await getUserGroup(client, opts);
+      console.log(await sonarqubeUserService.getUserGroup(opts))
     });
 
   grant
     .command("user")
     .requiredOption("-u, --user <user>", "specify a user with email ex. example@email.com")
     .description("get detail information about the user")
-    .action(async (opts: IUser) => {
-      const client = await authentication();
+    .action(async (opts: IUserGroup) => {
+      const authService = new AuthenticationService();
+      const client = await authService.getClient();
+      const sonarqubeUserService = new SonarqubeUserService(client);
 
-      await searchUser(client, opts);
+      console.log(await sonarqubeUserService.searchUser(opts))
     });
 }
