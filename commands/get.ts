@@ -1,7 +1,7 @@
 import { Command } from "commander";
-import { IUserGroup } from "../interfaces.ts";
-import { SonarqubeUserService } from "../../services/user.service.ts";
-import { AuthenticationService } from "../../services/auth.service.ts";
+import { IUserGroup } from "../lib/interfaces.ts";
+import { SonarqubeUserService } from "../services/user.service.ts";
+import { AuthenticationService } from "../services/auth.service.ts";
 
 export default function (program: Command) {
   const grant = program.command("get");
