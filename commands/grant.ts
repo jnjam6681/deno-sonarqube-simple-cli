@@ -1,7 +1,7 @@
 import { Command } from "commander";
 import { IUserGroup } from "../types/type.interfaces.ts";
 import { _ } from "../deps.ts";
-import { exitCode } from "../lib/enums.ts";
+import { exitCode } from "../types/type.enum.ts";
 import { SonarqubeGroupService } from "../services/user_group.service.ts";
 import { PermissionService } from "../services/permission.service.ts";
 import { SonarqubeUserService } from "../services/user.service.ts";

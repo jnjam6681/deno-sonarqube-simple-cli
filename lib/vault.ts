@@ -1,6 +1,6 @@
 import axios from "axios";
 import { config } from "../config/config.ts";
-import { exitCode } from "./enums.ts";
+import { exitCode } from "../types/type.enum.ts";
 
 
 interface IVault {

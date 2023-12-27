@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import { IUserGroup } from "../types/type.interfaces.ts";
-import { exitCode } from "../lib/enums.ts";
+import { exitCode } from "../types/type.enum.ts";
 import { _ } from "../deps.ts";
 
 export interface ISonarqubeGroupSearch {
