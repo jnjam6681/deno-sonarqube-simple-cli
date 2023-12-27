@@ -16,7 +16,7 @@ program
   .name("sonar-gen")
   .description("Example command sonarqube from deno");
 
-(await import("./lib/command/grant.ts")).default(program);
-(await import("./lib/command/get.ts")).default(program);
+(await import("./commands/grant.ts")).default(program);
+(await import("./commands/get.ts")).default(program);
 
 program.parse();
