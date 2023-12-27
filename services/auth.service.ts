@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import { config } from "../config/config.ts";
-import { fetchSecret } from "../lib/vault.ts";
+import { fetchSecret } from "../helpers/vault.help.ts";
 
 export class AuthenticationService {
   private client: AxiosInstance | null = null;
