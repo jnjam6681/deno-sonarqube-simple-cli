@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from "axios";
-import { IUserGroup } from "../lib/interfaces.ts";
+import { IUserGroup } from "../types/type.interfaces.ts";
 import { exitCode } from "../lib/enums.ts";
 import { _ } from "../deps.ts";
 

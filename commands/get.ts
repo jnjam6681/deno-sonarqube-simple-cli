@@ -1,5 +1,5 @@
 import { Command } from "commander";
-import { IUserGroup } from "../lib/interfaces.ts";
+import { IUserGroup } from "../types/type.interfaces.ts";
 import { SonarqubeUserService } from "../services/user.service.ts";
 import { AuthenticationService } from "../services/auth.service.ts";
 
