@@ -2,10 +2,10 @@ import { Command } from "commander";
 import { IUserGroup } from "../interfaces.ts";
 import { _ } from "../../deps.ts";
 import { exitCode } from "../enums.ts";
-import { SonarqubeGroupService } from "../../services/SonarqubeGroupService.ts";
-import { PermissionService } from "../../services/PermissionService.ts";
-import { SonarqubeUserService } from "../../services/SonarqubeUserService.ts";
-import { AuthenticationService } from "../../services/AuthenticationService.ts";
+import { SonarqubeGroupService } from "../../services/user_group.service.ts";
+import { PermissionService } from "../../services/permission.service.ts";
+import { SonarqubeUserService } from "../../services/user.service.ts";
+import { AuthenticationService } from "../../services/auth.service.ts";
 
 export default function (program: Command) {
   const grant = program.command("grant");
