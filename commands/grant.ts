@@ -13,18 +13,20 @@ export default function (program: Command) {
   grant
     .command("user-group")
     .requiredOption(
-      "-u, --user <user>",
+      "-u, --user <user...>",
       "specify a user with email ex. example@email.com"
     )
     .requiredOption("-g, --group <group>", "specify a group ex. 001.1_DEV")
     .description("add a user to a group.")
     .action(async (opts: IUserGroup) => {
+      console.log(opts);
+      // console.log(_.chain(opts.user).trim().split(",").compact().value());
       const authService = new AuthenticationService();
       const client = await authService.getClient();
 
-      const sonarqubeGroupService = new SonarqubeGroupService(client)
+      const sonarqubeGroupService = new SonarqubeGroupService(client);
       const permissionService = new PermissionService(client);
-      const sonarqubeUserService = new SonarqubeUserService(client)
+      const sonarqubeUserService = new SonarqubeUserService(client);
 
       const group = await sonarqubeGroupService.searchGroup(opts);
       const matchGroup = _.some(
@@ -46,7 +48,10 @@ export default function (program: Command) {
       const findUser = _.filter(user.users, (user) => user.email === opts.user);
 
       if (findUser.length > 0) {
-        await sonarqubeGroupService.addUserToGroup(findUser[0].login, opts.group);
+        await sonarqubeGroupService.addUserToGroup(
+          findUser[0].login,
+          opts.group
+        );
       } else {
         console.error(`Not found user ${opts.user}`);
         Deno.exit(exitCode.USER_NOT_FOUND);
