@@ -64,6 +64,18 @@ export class SonarqubeGroupService {
     }
   }
 
+  public async updateGroup(currentName: string, name: string): Promise<void> {
+    try {
+      await this.client.postForm(`api/user_groups/update`, {
+        currentName: currentName,
+        name: name,
+      });
+    } catch (err) {
+      this.handleAxiosError(err);
+      return; // Add this return statement
+    }
+  }
+
   // deno-lint-ignore no-explicit-any
   private handleAxiosError(err: any): void {
     if (axios.isAxiosError(err)) {

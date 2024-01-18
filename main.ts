@@ -18,5 +18,6 @@ program
 
 (await import("./commands/grant.ts")).default(program);
 (await import("./commands/get.ts")).default(program);
+(await import("./commands/update.ts")).default(program);
 
 program.parse();
