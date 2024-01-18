@@ -36,12 +36,15 @@ export default function (program: Command) {
 
       const matchGroup = _.filter(
         group.groups,
-        (group) => group.name === opts.currentName
+        (group) => group.name.toUpperCase() === opts.currentName.toUpperCase()
       );
 
-      if (matchGroup) {
+      console.log(matchGroup)
+
+      if (matchGroup.length > 0) {
         await _sonarqubeGroupService.updateGroup(
-          opts.currentName,
+          // opts.currentName,
+          matchGroup[0].name,
           opts.newName
         );
 

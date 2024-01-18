@@ -70,6 +70,7 @@ export class SonarqubeGroupService {
         currentName: currentName,
         name: name,
       });
+      console.log(`Update a group (${currentName}) to ${name}`)
     } catch (err) {
       this.handleAxiosError(err);
       return; // Add this return statement
